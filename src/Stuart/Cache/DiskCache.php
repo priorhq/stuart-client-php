@@ -19,8 +19,8 @@ class DiskCache implements CacheInterface
 
     private function getContent()
     {
-        if (file_exists(urlencode($this->fileName))) {
-            return file_get_contents(urlencode($this->fileName));
+        if (file_exists($this->fileName)) {
+            return file_get_contents($this->fileName);
         } else {
             return "";
         }
@@ -37,11 +37,9 @@ class DiskCache implements CacheInterface
             $asArray = json_decode(json_encode($objectWithTokens), true);
             $token = $asArray[$key];
             if ($token) {
-                print "Token cache HIT.\n";
                 return new StuartAccessToken($token);
             }
         }
-        print "Token cache miss.\n";
         return null;
     }
 
@@ -60,7 +58,7 @@ class DiskCache implements CacheInterface
         } else {
             $arrToWrite = array($key => $value);
         }
-        $file = fopen(urlencode($this->fileName), "w");
+        $file = fopen($this->fileName, "w");
         fwrite($file, json_encode($arrToWrite));
         fclose($file);
     }

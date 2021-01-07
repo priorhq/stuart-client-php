@@ -51,7 +51,6 @@ class HttpClient
             if ($e->hasResponse()) {
                 $response = $e->getResponse();
                 if (!$isRetry && $response->getStatusCode() == 401 && $this->authenticator->accessTokenIsCachable()) {
-                    print "Token cached is expired. Getting a token...\n";
                     $this->authenticator->getNewAccessToken();
                     // During peak hours Stuart's authentication replicas lag for 1-2 seconds.
                     // There's a chance that the newly created token does not exist yet in the replicas.
@@ -97,7 +96,6 @@ class HttpClient
             if ($e->hasResponse()) {
                 $response = $e->getResponse();
                 if (!$isRetry && $response->getStatusCode() == 401 && $this->authenticator->accessTokenIsCachable()) {
-                    print "Token cached is expired. Getting a token...\n";
                     $this->authenticator->getNewAccessToken();
                     // During peak hours Stuart's authentication replicas lag for 1-2 seconds.
                     // There's a chance that the newly created token does not exist yet in the replicas.
